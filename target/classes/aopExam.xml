@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
+<!--
+
+	내가 에러 난것 => pom.xml에 jar파일과 같은 코드 넣는것 안한것, <property name="" value=""/>하지못함,
+				<bean id="hello" class="com.spring.ex4.Hello" />이걸 만드는것만드로도 생성자로 지정한
+				 "Hello"가 출력이되는데(맨위에만 출력됨) 이걸 생성자 통한 출력 코드가 필요하다 생각해 막힘.
+ -->
+	<bean id="mystudent" class="com.spring.ex4.StudentImpl">
+		<property name="name" value="조정석"></property>
+		<property name="age" value="10"></property>
+		<property name="gradeNum" value="3"></property>
+		<property name="classNum" value="5"></property>
+	</bean>
+
+	<bean id="myworker" class="com.spring.ex4.WorkerImpl">
+		<property name="name" value="윤아"></property>
+		<property name="age" value="35"></property>
+		<property name="job" value="개발자"></property>
+	</bean>
+	
+	<bean id="hello" class="com.spring.ex4.Hello" />
+	<bean id="start" class="com.spring.ex4.Start" />
+	<bean id="end" class="com.spring.ex4.End" />
+	<bean id="bye" class="com.spring.ex4.Goodbye" />
+
+
+
+	<aop:config>
+		<aop:aspect ref="start" order="1">
+			<aop:before method="start"
+				pointcut="execution(* com.spring.ex4.StudentImpl.*())" />
+		</aop:aspect>
+	</aop:config>
+
+	<aop:config>
+		<aop:aspect ref="hello" order="2">
+			<aop:before method="hello"
+				pointcut="execution(* com.spring.ex4.StudentImpl.*())" />
+		</aop:aspect>
+	</aop:config>
+
+	<aop:config>
+		<aop:aspect ref="end">
+			<aop:after method="end"
+				pointcut="execution(* com.spring.ex4.StudentImpl.*())" />
+		</aop:aspect>
+	</aop:config>
+
+
+	<!--========================================================== -->
+
+	<aop:config>
+		<aop:aspect ref="start" order="1">
+			<aop:before method="start"
+				pointcut="execution(* com.spring.ex4.Worker*.*())" />
+		</aop:aspect>
+	</aop:config>
+	
+	<aop:config>
+		<aop:aspect ref="bye" order="2">
+			<aop:after method="goodbye"
+				pointcut="execution(* com.spring.ex4.WorkerImpl.*())" />
+		</aop:aspect>
+	</aop:config>
+	
+	<aop:config>
+		<aop:aspect ref="end" order="1">
+			<aop:after method="end"
+				pointcut="execution(* com.spring.ex4.WorkerImpl.*())" />
+		</aop:aspect>
+	</aop:config>
+	
+	
+
+</beans>

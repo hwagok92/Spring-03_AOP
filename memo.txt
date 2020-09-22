@@ -1,0 +1,8 @@
+aop 할때는 pom.xml에 아래 코드 추가 해야한다. jar파일 넣는것과 같은 기능이다
+
+<!-- AOP 설정 -->
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<version>1.6.11</version>
+		</dependency>
